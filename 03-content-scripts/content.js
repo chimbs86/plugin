@@ -14,19 +14,13 @@ notification.appendChild(notificationText);
 // Add to current page.
 document.body.appendChild(notification);
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.sendMessage({message: "messageSent"}, function (response) {
+    fetch(chrome.runtime.getURL('/template.html')).then(r => r.text()).then(html => {
+        document.body.insertAdjacentHTML('beforeend', html);
+        // not using innerHTML as it would break js event listeners of the page
+    });
 
-    const notification = document.getElementsByClassName('acho-notification')[0];
-    const notificationText = notification.getElementsByTagName('p')[0];
 
-    notificationText.innerHTML = "You are at: " + request.tabTitle;
 
-    notification.style.display = 'flex';
-
-    setTimeout(function () {
-
-        notification.style.display = 'none';
-    }, 5000);
-    
     return true;
 });

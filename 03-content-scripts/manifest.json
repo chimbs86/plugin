@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Acho, where are we?",
+    "name": "Chimbsnote",
     "version": "0.1.0",
     "description": "Ask Acho where you are and he'll bark the page title at you.",
     "browser_action": {
@@ -40,14 +40,17 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["content.js"],
-            "css": ["content.css"]
+            "js": ["content.js", "clicker.js"],
+            "css": ["content.css"],
+            "run_at":    "document_end"
         }
     ],
     "web_accessible_resources": [
+        "template.html",
         "images/icon32.png"
     ],
     "permissions": [
         "tabs"
     ]
+
 }
